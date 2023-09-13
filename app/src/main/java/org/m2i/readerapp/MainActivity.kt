@@ -38,7 +38,6 @@ class MainActivity : ComponentActivity() {
 fun ReaderApp(){
     Surface(color = MaterialTheme.colorScheme.background,
         modifier = Modifier.fillMaxSize()) {
-
         Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
             ReaderNavigation()
         }
