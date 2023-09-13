@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "199531942005",
+    "project_id": "jetreadingapp",
+    "storage_bucket": "jetreadingapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:199531942005:android:09695d7804985f9a7ea83c",
+        "android_client_info": {
+          "package_name": "org.m2i.readerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAMXHXZlUSjnKltYc-GUpn0bXBokkRF4E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
