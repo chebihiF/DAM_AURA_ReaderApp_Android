@@ -15,7 +15,18 @@ class LoginScreenViewModel : ViewModel() {
     val loadingState = MutableStateFlow(LoadingState.IDLE)
     private val auth: FirebaseAuth = Firebase.auth
 
-    fun createUserWithEmailAndPassword(){
+    fun createUserWithEmailAndPassword(email: String, password: String, home: () -> Unit){
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener{task ->
+                if(task.isSuccessful){
+                    home()
+                }else{
+                    Log.d("FB", "createUserWithEmailAndPassword: ${task.result.toString()}")
+                }
+
+            }.addOnFailureListener{
+                Log.d("FB", "createUserWithEmailAndPassword: $it")
+            }
 
     }
 
