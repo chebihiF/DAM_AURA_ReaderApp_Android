@@ -27,10 +27,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.delay
+import org.m2i.readerapp.navigation.ReaderScreens
 
-@Preview(showBackground = true)
+
 @Composable
-fun ReaderSplashScreen(navController: NavHostController = NavHostController(context = LocalContext.current)) {
+fun ReaderSplashScreen(navController: NavHostController ) {
 
     val scale = remember{
         Animatable(0f)
@@ -43,6 +44,7 @@ fun ReaderSplashScreen(navController: NavHostController = NavHostController(cont
                     .getInterpolation(it)
             }))
         delay(2000L)
+        navController.navigate(ReaderScreens.LoginScreen.name)
     }
 
     Surface(modifier = Modifier
