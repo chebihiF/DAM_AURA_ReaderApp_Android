@@ -2,8 +2,11 @@ package org.m2i.readerapp.screens.login
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,6 +33,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -37,12 +41,13 @@ import org.m2i.readerapp.R
 import org.m2i.readerapp.component.EmailInput
 import org.m2i.readerapp.component.PasswordInput
 import org.m2i.readerapp.component.ReaderLogo
+import org.m2i.readerapp.navigation.ReaderScreens
 
 
 @OptIn(ExperimentalComposeUiApi::class)
-@Preview
 @Composable
-fun ReaderLoginScreen(navController: NavHostController = NavHostController(LocalContext.current)) {
+fun ReaderLoginScreen(navController: NavHostController,
+                      viewModel: LoginScreenViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
 
     val showLoginForm = rememberSaveable { mutableStateOf(true) }
 
@@ -52,11 +57,41 @@ fun ReaderLoginScreen(navController: NavHostController = NavHostController(Local
             verticalArrangement = Arrangement.Top
         ) {
             ReaderLogo()
-            UserForm(loading = false, isCreateAccount = false){ email, password ->
-                Log.d("Form", "ReaderLoginScreen : $email $password")
+            if(showLoginForm.value) {
+                UserForm(loading = false, isCreateAccount = false) { email, password ->
+                    viewModel.signInWithEmailAndPassword(email, password){
+                        navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+                    }
+                }
+            }
+            else {
+                UserForm(loading = false, isCreateAccount = false) { email, password ->
+                    //Todo: create a FB account
+                }
+            }
+
+            Spacer(modifier = Modifier.height(15.dp))
+            Row(
+                modifier = Modifier.padding(15.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                val text = if (showLoginForm.value) "Sign up" else "Login"
+                Text(text = "New User?")
+                Text(text,
+                    modifier = Modifier
+                        .clickable {
+                            showLoginForm.value = !showLoginForm.value
+
+                        }
+                        .padding(start = 5.dp),
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.secondary)
+
             }
         }
     }
+
 }
 
 @ExperimentalComposeUiApi

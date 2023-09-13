@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun ReaderLogo(modifier: Modifier = Modifier) {
     Text(text = "A. Reader",
-        modifier = modifier.padding(bottom = 16.dp),
+        modifier = modifier.padding(bottom = 16.dp, top = 20.dp),
         style = MaterialTheme.typography.headlineMedium,
         color = Color.Red.copy(alpha = 0.5f))
 }
